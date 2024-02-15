@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "ponytron"
+version = "0.1.0"
+description = ""
+authors = ["V"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+litestar = {extras = ["standard"], version = "^2.6.1"}
+pony = "^0.7.17"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,8 +1,8 @@
 {
   "packages": [
-    "poetry@latest",
     "nodejs@latest",
-    "bun@latest"
+    "bun@latest",
+    "rye@latest"
   ],
   "shell": {
     "init_hook": [

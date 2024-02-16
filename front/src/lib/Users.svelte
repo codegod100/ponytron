@@ -1,20 +1,14 @@
 <script>
-    import { PUBLIC_API } from "$env/static/public";
-    let get_users = async () => {
-        let users_url = PUBLIC_API + "/users";
-        let req = fetch(users_url);
-        return (await req).json();
-    };
+    import { get_users } from "$lib/common";
 </script>
 
-{PUBLIC_API}
-<div>
-    Users:
-</div>
-{#await get_users() then users}
-    <div>
-        {#each users as user}
+<div>Users:</div>
+{#await get_users()}
+    Grabbing users
+{:then users}
+    {#each users as user}
+        <div>
             Username: {user.username}
-        {/each}
-    </div>
+        </div>
+    {/each}
 {/await}

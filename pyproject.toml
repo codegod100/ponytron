@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 litestar = {extras = ["standard"], version = "^2.6.1"}
 pony = "^0.7.17"
+passlib = "^1.7.4"
 
 
 [build-system]

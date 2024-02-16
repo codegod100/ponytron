@@ -1,9 +1,33 @@
 <script>
-    export let logged_in = false
+    import {storedname, create_user} from "$lib/common"
+    export let logged_in = false;
+
+    let username = $storedname
+    let password = "";
+
+
+    if(username){
+        logged_in = true
+    }
 </script>
 {#if !logged_in}
-Username or Email
-<input type="text">
-Password
-<input type="text">
+    <form
+        on:submit|preventDefault={async () => {
+            storedname.set(username)
+            await create_user({username,password})
+            logged_in = true
+        }}
+    >
+        Username
+        <input bind:value={username} type="text" />
+        Password
+        <input bind:value={password} type="text" />
+        <button>login</button>
+    </form>
+{:else}
+Hello {username} <button on:click={()=>{
+    logged_in = false
+    storedname.set("")
+}}>logout</button>
 {/if}
+<div>&nbsp;</div>

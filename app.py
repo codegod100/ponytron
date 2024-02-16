@@ -30,6 +30,23 @@ async def users() -> List[Any]:
 
     return [user.to_dict() for user in users]
 
+@get("/chats")
+async def chats()->List[Any]:
+    chats = select(c for c in Chat)
+    out = []
+    for c in chats:
+        chat = c.to_dict()
+        chat["owner"] = c.owner.username
+        out.append(chat)
+    return out
+
+@post("/chats")
+async def create_chat(data: Any)->None:
+    chats = select(c for c in Chat)
+    user = select(u for u in User if u.username == data["owner"]).first()
+    if not chats:
+        Chat(owner=user, name=data["name"])
+
 @get("/chat/{name:str}")
 async def chat(name: str) -> Dict:
     with db_session:
@@ -57,4 +74,4 @@ async def submit_chat(data: Any) -> None:
     user = select(u for u in User if u.username == data["user"]).first()
     message = Message(author=user, chat=chat, body=data["body"])
     commit()
-app = Litestar(route_handlers=[users,chat,submit_chat,create_user], cors_config=cors_config)
+app = Litestar(route_handlers=[users,chat,submit_chat,create_user,chats,create_chat], cors_config=cors_config)

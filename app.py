@@ -51,13 +51,13 @@ async def chat(name: str) -> Dict:
 
 
 @post("/create_user")
-@db_session
 async def create_user(data: Any) -> None:
-    password = pbkdf2_sha256.hash(data["password"])
-    user = select(u for u in User if u.username == data["username"]).first()
-    if not user:
-        User(username=data["username"], password=password)
-        commit()
+    with db_session:
+        password = pbkdf2_sha256.hash(data["password"])
+        user = select(u for u in User if u.username == data["username"]).first()
+        if not user:
+            User(username=data["username"], password=password)
+            commit()
 
 
 @post("/submit_chat")

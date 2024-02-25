@@ -1,37 +1,24 @@
-import json
 from litestar import Litestar, get, post
 from pony.orm import Database, db_session, commit, select
 from models import User, Message, Chat
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
+
 db = Database()
 
-cors_config = CORSConfig(
-    allow_origins=["*"],
-    allow_methods=["GET", "POST"]
-)
+cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 
-@get("/")
-async def hello_world() -> dict[str, str]:
-    """Keeping the tradition alive with hello world."""
-    return {"hello": "world"}
 
 @get("/users")
 async def users() -> List[Any]:
     users = select(u for u in User)
     print(users.show())
-    # if not users:
-    #     print("no users")
-    #     User(username="test")
-    #     commit()
-    #     users = select(u for u in User)
-    #     print(users)
-
     return [user.to_dict() for user in users]
 
+
 @get("/chats")
-async def chats()->List[Any]:
+async def chats() -> List[Any]:
     chats = select(c for c in Chat)
     out = []
     for c in chats:
@@ -40,12 +27,14 @@ async def chats()->List[Any]:
         out.append(chat)
     return out
 
+
 @post("/chats")
-async def create_chat(data: Any)->None:
+async def create_chat(data: Any) -> None:
     chats = select(c for c in Chat)
     user = select(u for u in User if u.username == data["owner"]).first()
     if not chats:
         Chat(owner=user, name=data["name"])
+
 
 @get("/chat/{name:str}")
 async def chat(name: str) -> Dict:
@@ -54,10 +43,11 @@ async def chat(name: str) -> Dict:
         messages = select(m for m in Message if m.chat == chat)
         out = {"name": chat.name, "messages": []}
         for m in messages:
-            message = m.to_dict('id body')
+            message = m.to_dict("id body")
             message["author"] = m.author.username
             out["messages"].append(message)
         return out
+
 
 @post("/create_user")
 async def create_user(data: Any) -> None:
@@ -67,11 +57,17 @@ async def create_user(data: Any) -> None:
         User(username=data["username"], password=password)
         commit()
 
+
 @post("/submit_chat")
 async def submit_chat(data: Any) -> None:
     print(data)
     chat = select(c for c in Chat if c.name == data["chat_name"]).first()
     user = select(u for u in User if u.username == data["user"]).first()
-    message = Message(author=user, chat=chat, body=data["body"])
+    Message(author=user, chat=chat, body=data["body"])
     commit()
-app = Litestar(route_handlers=[users,chat,submit_chat,create_user,chats,create_chat], cors_config=cors_config)
+
+
+app = Litestar(
+    route_handlers=[users, chat, submit_chat, create_user, chats, create_chat],
+    cors_config=cors_config,
+)

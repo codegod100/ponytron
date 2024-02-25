@@ -1,16 +1,16 @@
 <script>
     import {storedname, create_user} from "$lib/common"
     export let logged_in = false;
+    export let username = $storedname
+    let password = ""
 
-    let username = $storedname
-    let password = "";
-
-
+    console.log("we got", username)
     if(username){
         logged_in = true
     }
 </script>
 {#if !logged_in}
+Hello: {username}
     <form
         on:submit|preventDefault={async () => {
             storedname.set(username)

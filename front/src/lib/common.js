@@ -12,9 +12,23 @@ export let get_chat = async (name) => {
     return (await req).json();
 }
 
-export let create_user = async(data) => {
+export let get_chats = async () => {
+    let url = PUBLIC_API + `/chats`
+    let req = fetch(url);
+    return (await req).json();
+}
+
+export let create_user = async (data) => {
     let create_user_url = PUBLIC_API + `/create_user`
     await fetch(create_user_url, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+}
+
+export let create_chat = async (data) => {
+    let url = PUBLIC_API + `/chats`
+    await fetch(url, {
         method: "POST",
         body: JSON.stringify(data)
     })
@@ -28,3 +42,7 @@ export let submit_chat = async (data) => {
 }
 
 export let storedname = persisted("username", "")
+
+
+let emojis = ["😀", "😍", "🤔", "🚀", "🏆", "🎉", "🤷‍♂️", "💃", "🤝", "🏁"]
+export let randomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];

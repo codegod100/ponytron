@@ -12,7 +12,7 @@ cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 
 @get("/users")
 async def users() -> List[Any]:
-    with_dbsession:
+    with db_session:
         users = select(u for u in User)
         print(users.show())
         return [user.to_dict() for user in users]
@@ -31,7 +31,7 @@ async def chats() -> List[Any]:
 
 @post("/chats")
 async def create_chat(data: Any) -> None:
-    chats = select(c for c in Chat)
+    chats = select(c for c in Chat if c.name == data["name"])
     user = select(u for u in User if u.username == data["owner"]).first()
     if not chats:
         Chat(owner=user, name=data["name"])
@@ -51,6 +51,7 @@ async def chat(name: str) -> Dict:
 
 
 @post("/create_user")
+@db_session
 async def create_user(data: Any) -> None:
     password = pbkdf2_sha256.hash(data["password"])
     user = select(u for u in User if u.username == data["username"]).first()

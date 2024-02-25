@@ -9,147 +9,38 @@
 
 -e file:.
 anyio==4.2.0
-    # via httpx
-    # via litestar
-    # via watchfiles
 certifi==2024.2.2
-    # via httpcore
-    # via httpx
 click==8.1.7
-    # via harlequin
-    # via litestar
-    # via rich-click
-    # via shandy-sqlfmt
-    # via uvicorn
-duckdb==0.10.0
-    # via harlequin
 editorconfig==0.12.4
-    # via jsbeautifier
 exceptiongroup==1.2.0
-    # via anyio
-    # via litestar
 faker==23.2.0
-    # via polyfactory
 fast-query-parsers==1.0.3
-    # via litestar
 h11==0.14.0
-    # via httpcore
-    # via uvicorn
-harlequin==1.15.0
-    # via ponytron
 httpcore==1.0.3
-    # via httpx
 httptools==0.6.1
-    # via uvicorn
 httpx==0.26.0
-    # via litestar
 idna==3.6
-    # via anyio
-    # via httpx
 jinja2==3.1.3
-    # via litestar
-    # via shandy-sqlfmt
 jsbeautifier==1.15.0
-    # via litestar
-linkify-it-py==2.0.3
-    # via markdown-it-py
 litestar==2.6.1
-    # via ponytron
 markdown-it-py==3.0.0
-    # via mdit-py-plugins
-    # via rich
-    # via textual
 markupsafe==2.1.5
-    # via jinja2
-mdit-py-plugins==0.4.0
-    # via markdown-it-py
 mdurl==0.1.2
-    # via markdown-it-py
 msgspec==0.18.6
-    # via litestar
 multidict==6.0.5
-    # via litestar
-numpy==1.26.4
-    # via pyarrow
 passlib==1.7.4
-    # via ponytron
-platformdirs==4.2.0
-    # via harlequin
-    # via shandy-sqlfmt
 polyfactory==2.14.1
-    # via litestar
 pony==0.7.17
-    # via ponytron
-prompt-toolkit==3.0.36
-    # via questionary
-pyarrow==15.0.0
-    # via textual-fastdatatable
 pygments==2.17.2
-    # via rich
-pyperclip==1.8.2
-    # via textual-textarea
 python-dateutil==2.8.2
-    # via faker
 python-dotenv==1.0.1
-    # via uvicorn
 pyyaml==6.0.1
-    # via litestar
-    # via uvicorn
-questionary==2.0.1
-    # via harlequin
 rich==13.7.0
-    # via litestar
-    # via rich-click
-    # via textual
 rich-click==1.7.3
-    # via harlequin
-    # via litestar
-shandy-sqlfmt==0.21.2
-    # via harlequin
 six==1.16.0
-    # via jsbeautifier
-    # via python-dateutil
 sniffio==1.3.0
-    # via anyio
-    # via httpx
-textual==0.49.0
-    # via harlequin
-    # via textual-fastdatatable
-    # via textual-textarea
-textual-fastdatatable==0.7.1
-    # via harlequin
-textual-textarea==0.11.3
-    # via harlequin
-tomli==2.0.1
-    # via harlequin
-    # via shandy-sqlfmt
-tomlkit==0.12.3
-    # via harlequin
-tqdm==4.66.2
-    # via shandy-sqlfmt
-tree-sitter==0.20.4
-    # via textual
-    # via tree-sitter-languages
-tree-sitter-languages==1.9.1
-    # via textual
-    # via textual-textarea
 typing-extensions==4.9.0
-    # via anyio
-    # via litestar
-    # via polyfactory
-    # via rich-click
-    # via textual
-    # via uvicorn
-uc-micro-py==1.0.3
-    # via linkify-it-py
 uvicorn==0.27.1
-    # via litestar
 uvloop==0.19.0
-    # via litestar
-    # via uvicorn
 watchfiles==0.21.0
-    # via uvicorn
-wcwidth==0.2.13
-    # via prompt-toolkit
 websockets==12.0
-    # via uvicorn

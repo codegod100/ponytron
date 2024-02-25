@@ -4,6 +4,8 @@
   import { invalidateAll } from "$app/navigation";
 </script>
 
+<div><a href="/">Main</a></div>
+
 List chats
 
 {#if data.chats.length > 0}

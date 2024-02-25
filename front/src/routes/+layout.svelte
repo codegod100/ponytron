@@ -6,7 +6,7 @@
 </script>
 
 <h1>Ponytron 🐴</h1>
-<Login username={data.username} />
+<Login />
 {#if $storedname}
   <slot />
 {/if}

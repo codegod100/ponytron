@@ -12,9 +12,10 @@ cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 
 @get("/users")
 async def users() -> List[Any]:
-    users = select(u for u in User)
-    print(users.show())
-    return [user.to_dict() for user in users]
+    with_dbsession:
+        users = select(u for u in User)
+        print(users.show())
+        return [user.to_dict() for user in users]
 
 
 @get("/chats")

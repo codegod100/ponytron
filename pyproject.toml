@@ -9,7 +9,6 @@ dependencies = [
     "litestar[standard]>=2.6.1",
     "pony>=0.7.17",
     "passlib>=1.7.4",
-    "harlequin>=1.1.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

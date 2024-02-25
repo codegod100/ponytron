@@ -6,6 +6,7 @@
 </script>
 
 {#await get_chat($page.params.name) then chat}
+  <h1>You are in {$page.params.name}</h1>
   {#each chat.messages as message}
     <div>
       {message.author}: {message.body}

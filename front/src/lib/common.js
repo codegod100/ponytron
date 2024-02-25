@@ -44,5 +44,5 @@ export let submit_chat = async (data) => {
 export let storedname = persisted("username", "")
 
 
-let emojis = ["😀", "😍", "🤔", "🚀", "🏆", "🎉", "🤷‍♂️", "💃", "🤝", "🏁"]
-export let randomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
+// let emojis = ["😀", "😍", "🤔", "🚀", "🏆", "🎉", "🤷‍♂️", "💃", "🤝", "🏁"]
+// export let randomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];

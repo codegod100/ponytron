@@ -15,6 +15,7 @@
       "backend": "rye run litestar run --debug --reload",
       "frontend": [
         "cd front",
+        "bun install",
         "npm run dev"
       ]
     }

@@ -1,5 +1,6 @@
 <script>
   import { storedname, create_user } from "$lib/common";
+  import { css } from "styled-system/css";
   export let logged_in = false;
   export let username = $storedname;
   let password = "";
@@ -19,14 +20,23 @@
     }}
   >
     Username
-    <input bind:value={username} type="text" />
+    <input
+      bind:value={username}
+      type="text"
+      class={css({ background: "amber.500", rounded: "md", p: 2 })}
+    />
     Password
-    <input bind:value={password} type="text" />
-    <button>login</button>
+    <input
+      bind:value={password}
+      type="text"
+      class={css({ background: "amber.500", rounded: "md", p: 2 })}
+    />
+    <button class={css({ bg: "amber.500", rounded: "md", p: 2 })}>login</button>
   </form>
 {:else}
   Hello {username}
   <button
+    class={css({ bg: "amber.500", rounded: "md", p: 2 })}
     on:click={() => {
       logged_in = false;
       storedname.set("");

@@ -4,10 +4,16 @@ from models import User, Message, Chat
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
+from litestar.handlers.websocket_handlers import websocket_listener
+import socketio
+import uvicorn
 
+sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 db = Database()
 
 cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
+
+
 
 
 @get("/users")
@@ -73,3 +79,5 @@ app = Litestar(
     route_handlers=[users, chat, submit_chat, create_user, chats, create_chat],
     cors_config=cors_config,
 )
+app = socketio.ASGIApp(sio,app)
+

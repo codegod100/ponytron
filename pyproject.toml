@@ -9,6 +9,8 @@ dependencies = [
     "litestar[standard]>=2.6.1",
     "pony>=0.7.17",
     "passlib>=1.7.4",
+    "python-socketio>=5.11.1",
+    "fastapi_cors>=0.0.6",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

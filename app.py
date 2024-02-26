@@ -26,21 +26,23 @@ async def users() -> List[Any]:
 
 @get("/chats")
 async def chats() -> List[Any]:
-    chats = select(c for c in Chat)
-    out = []
-    for c in chats:
-        chat = c.to_dict()
-        chat["owner"] = c.owner.username
-        out.append(chat)
-    return out
+    with db_session:
+        chats = select(c for c in Chat)
+        out = []
+        for c in chats:
+            chat = c.to_dict()
+            chat["owner"] = c.owner.username
+            out.append(chat)
+        return out
 
 
 @post("/chats")
 async def create_chat(data: Any) -> None:
-    chats = select(c for c in Chat if c.name == data["name"])
-    user = select(u for u in User if u.username == data["owner"]).first()
-    if not chats:
-        Chat(owner=user, name=data["name"])
+    with db_session:
+        chats = select(c for c in Chat if c.name == data["name"])
+        user = select(u for u in User if u.username == data["owner"]).first()
+        if not chats:
+            Chat(owner=user, name=data["name"])
 
 
 @get("/chat/{name:str}")
@@ -68,16 +70,18 @@ async def create_user(data: Any) -> None:
 
 @post("/submit_chat")
 async def submit_chat(data: Any) -> None:
-    print(data)
-    chat = select(c for c in Chat if c.name == data["chat_name"]).first()
-    user = select(u for u in User if u.username == data["user"]).first()
-    Message(author=user, chat=chat, body=data["body"])
-    commit()
+    with db_session:
+        print(data)
+        chat = select(c for c in Chat if c.name == data["chat_name"]).first()
+        user = select(u for u in User if u.username == data["user"]).first()
+        Message(author=user, chat=chat, body=data["body"])
+        commit()
 
 
 app = Litestar(
     route_handlers=[users, chat, submit_chat, create_user, chats, create_chat],
     cors_config=cors_config,
+    debug=True
 )
 app = socketio.ASGIApp(sio,app)
 

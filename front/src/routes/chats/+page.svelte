@@ -6,12 +6,7 @@
   import { css } from "styled-system/css";
 </script>
 
-<div><a href="/">Main</a></div>
-
-List chats
-
 {#if data.chats.length > 0}
-  Got chats
   {#each data.chats as chat}
     <div>
       <a href="/chat/{chat.name}">{chat.name}</a>

@@ -21,5 +21,3 @@
     Username: {user.username}
   </div>
 {/each}
-
-<a href="/chats">Chats</a>

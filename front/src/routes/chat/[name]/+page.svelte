@@ -30,9 +30,13 @@
     type="text"
     placeholder="chat message..."
     bind:value={message}
-    class={css({ p: "2", bg: "amber.500", rounded: "md" })}
+    class={css({
+      p: "2",
+      bg: "amber.500",
+      rounded: "md",
+      _placeholder: { color: "amber.600" },
+    })}
   />
 </form>
 
-<a href="/">Main</a>
-<a href="/chats">Chats</a>
+

@@ -30,3 +30,9 @@
     <slot />
   </div>
 {/if}
+
+<div class={css({ p: "2" })}>
+  <div>Navigation:</div>
+  <a href="/" class={css({ bg: "blue.500" })}>Main</a>
+  <a href="/chats" class={css({ bg: "blue.500" })}>Chats</a>
+</div>

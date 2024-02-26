@@ -5,7 +5,6 @@
   export let username = $storedname;
   let password = "";
 
-  console.log("we got", username);
   if (username) {
     logged_in = true;
   }

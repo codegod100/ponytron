@@ -1,5 +1,5 @@
 from litestar import Litestar, get, post
-from pony.orm import Database, db_session, commit, select
+from pony.orm import Database, db_session, commit, select, desc
 from models import User, Message, Chat, Subscription
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
@@ -46,7 +46,11 @@ async def create_chat(data: Any) -> None:
 async def chat(name: str) -> Dict:
     with db_session:
         chat = select(c for c in Chat if c.name == name).first()
-        messages = select(m for m in Message if m.chat == chat)
+        messages = (
+            select(m for m in Message if m.chat == chat)
+            .order_by(lambda m: desc(m.id))
+            .limit(15)
+        )
         out = {"name": chat.name, "messages": []}
         for m in messages:
             message = m.to_dict("id body")

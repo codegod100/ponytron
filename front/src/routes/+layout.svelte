@@ -14,7 +14,7 @@
   </div>
   <div>
     {#if data.username}
-      <form method="POST">
+      <form method="POST" action="/">
         <button
           name="username"
           value=""
@@ -28,7 +28,7 @@
 </div>
 
 {#if !data.username}
-  <form method="POST">
+  <form method="POST" action="/">
     Username
     <input
       name="username"

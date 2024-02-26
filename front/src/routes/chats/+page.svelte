@@ -1,7 +1,6 @@
 <script>
   export let data;
-  export let socket;
-  import { get_chats, create_chat, storedname } from "$lib/common";
+  import { get_chats, create_chat } from "$lib/common";
   import { invalidateAll } from "$app/navigation";
   let chatName;
   import { css } from "styled-system/css";
@@ -19,7 +18,7 @@
 <button
   class={css({ background: "amber.500", rounded: "md", p: 2 })}
   on:click|preventDefault={async () => {
-    await create_chat({ owner: $storedname, name: data.emoji });
+    await create_chat({ owner: data.username, name: data.emoji });
     await invalidateAll();
   }}>create chat {data.emoji}</button
 >
@@ -31,7 +30,7 @@
   /><button
     class={css({ background: "amber.500", rounded: "md", p: 2 })}
     on:click={async () => {
-      await create_chat({ owner: $storedname, name: chatName });
+      await create_chat({ owner: data.username, name: chatName });
       await invalidateAll();
     }}>Submit</button
   >

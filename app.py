@@ -11,6 +11,9 @@ import uvicorn
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 db = Database()
 
+
+
+
 cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 
 
@@ -76,6 +79,7 @@ async def submit_chat(data: Any) -> None:
         user = select(u for u in User if u.username == data["user"]).first()
         Message(author=user, chat=chat, body=data["body"])
         commit()
+        await sio.emit("new_message")
 
 
 app = Litestar(

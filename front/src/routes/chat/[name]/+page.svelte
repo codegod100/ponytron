@@ -1,11 +1,19 @@
 <script>
-  import Chat from "$lib/Chat.svelte";
+  import { PUBLIC_API } from "$env/static/public";
+  import { Manager } from "socket.io-client";
+  const manager = new Manager(PUBLIC_API);
+  const socket = manager.socket("/");
+
   export let data;
   let message = "";
   import { get_chat, submit_chat, storedname } from "$lib/common";
   import { page } from "$app/stores";
   import { invalidateAll } from "$app/navigation";
   import { css } from "styled-system/css";
+  socket.on("new_message", () => {
+    console.log("new message sent");
+    invalidateAll();
+  });
 </script>
 
 <h1>You are in {$page.params.name}</h1>
@@ -23,7 +31,7 @@
       body: message,
     });
     message = "";
-    invalidateAll();
+    // invalidateAll();
   }}
 >
   <input
@@ -38,5 +46,3 @@
     })}
   />
 </form>
-
-

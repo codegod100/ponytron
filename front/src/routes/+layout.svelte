@@ -1,5 +1,6 @@
 <script>
   import Login from "$lib/Login.svelte";
+
   export let data;
   console.log("layout data", data);
   import { storedname, create_user } from "$lib/common";
@@ -10,14 +11,11 @@
   import { Manager } from "socket.io-client";
   const manager = new Manager(PUBLIC_API);
   const socket = manager.socket("/");
-  // console.log("socket", socket);
-  socket.io.on("ping", () => {
-    console.log("ping from server");
-  });
+
   socket.on("connect", () => {
-    // ...
     console.log("socket connected");
   });
+
   import ponylog from "$lib/ponylog";
   ponylog();
   export let logged_in = false;
@@ -74,7 +72,7 @@
 
 {#if $storedname}
   <div class={container()}>
-    <slot />
+    <slot {socket} />
   </div>
 
   <div class={css({ p: "2" })}>

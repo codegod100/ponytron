@@ -1,5 +1,6 @@
 <script>
   export let data;
+  export let socket;
   import { get_chats, create_chat, storedname } from "$lib/common";
   import { invalidateAll } from "$app/navigation";
   let chatName;

@@ -1,10 +1,7 @@
-import { get_chat, submit_chat, storedname } from "$lib/common";
-/** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
-	console.log("reloading", params)
+import { get_chat, submit_chat, storedname, following } from "$lib/common";
+export async function load({ params, cookies }) {
+	let username = cookies.get("username")
 	let chat = await get_chat(params.name)
-	return {
-		chat
-
-	};
+	let friends = await following(username);
+	return { friends, chat }
 }

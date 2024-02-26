@@ -9,7 +9,7 @@
     fontWeight: "bold",
   })}
 >
-  Hello 🐼!
+  Hello {data.username} 🐼!
 </div>
 
 <h2>Social</h2>

@@ -1,22 +1,16 @@
 from litestar import Litestar, get, post
 from pony.orm import Database, db_session, commit, select
-from models import User, Message, Chat
+from models import User, Message, Chat, Subscription
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
-from litestar.handlers.websocket_handlers import websocket_listener
 import socketio
-import uvicorn
 
-sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
+sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*")
 db = Database()
 
 
-
-
 cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
-
-
 
 
 @get("/users")
@@ -74,7 +68,6 @@ async def create_user(data: Any) -> None:
 @post("/submit_chat")
 async def submit_chat(data: Any) -> None:
     with db_session:
-        print(data)
         chat = select(c for c in Chat if c.name == data["chat_name"]).first()
         user = select(u for u in User if u.username == data["user"]).first()
         Message(author=user, chat=chat, body=data["body"])
@@ -82,10 +75,42 @@ async def submit_chat(data: Any) -> None:
         await sio.emit("new_message")
 
 
-app = Litestar(
-    route_handlers=[users, chat, submit_chat, create_user, chats, create_chat],
-    cors_config=cors_config,
-    debug=True
-)
-app = socketio.ASGIApp(sio,app)
+@post("/subscribe")
+async def subscribe(data: Any) -> None:
+    with db_session:
+        user = select(u for u in User if u.username == data["user"]).first()
+        Subscription(user=user, follower=data["my_info"])
+        commit()
 
+
+@get("/subscriptions/{user:str}")
+async def subscriptions(user: Any) -> Any:
+    with db_session:
+        user = select(u for u in User if u.username == user).first()
+        return [s.to_dict() for s in user.subscriptions]
+
+
+@get("/following/{user:str}")
+async def following(user: Any) -> Any:
+    with db_session:
+        subs = select(s for s in Subscription if s.follower == user)
+        users = [s.user for s in subs]
+        return [u.username for u in users]
+
+
+app = Litestar(
+    route_handlers=[
+        users,
+        chat,
+        submit_chat,
+        create_user,
+        chats,
+        create_chat,
+        subscribe,
+        subscriptions,
+        following,
+    ],
+    cors_config=cors_config,
+    debug=True,
+)
+app = socketio.ASGIApp(sio, app)

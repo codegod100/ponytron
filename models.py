@@ -14,6 +14,14 @@ class User(db.Entity):
     password = Required(str)
     statuses = Set("Status")
     chats = Set("Chat")
+    subscriptions = Set("Subscription")
+
+
+class Subscription(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    user = Required(User)
+    follower = Required(str)
+    composite_key(user, follower)
 
 
 class Chat(db.Entity):

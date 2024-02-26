@@ -41,6 +41,20 @@ export let submit_chat = async (data) => {
     })
 }
 
+export let subscribe = async (data) => {
+    let url = PUBLIC_API + "/subscribe"
+    await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+}
+
+export let following = async (user) => {
+    let url = PUBLIC_API + `/following/${user}`
+    let req = await fetch(url)
+    return (await req).json();
+}
+
 export let storedname = persisted("username", "")
 
 

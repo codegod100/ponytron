@@ -1,3 +1,6 @@
-import { storedname } from "$lib/common";
-import { get } from 'svelte/store'
-console.log("layout server", get(storedname))
+export async function load({ cookies }) {
+    let username = cookies.get("username")
+    console.log("username", username)
+    return { username }
+}
+

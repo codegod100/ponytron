@@ -1,4 +1,4 @@
-import { get_users } from "$lib/common";
+import { get_users, create_user } from "$lib/common";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
@@ -7,3 +7,15 @@ export async function load({ params }) {
         users
     };
 }
+
+export const actions = {
+    default: async ({ cookies, request }) => {
+        const data = await request.formData();
+        let username = data.get("username")
+        cookies.set("username", username, { path: "/" })
+        if (username) {
+            await create_user({ username, password: "" })
+        }
+        console.log("form data", data)
+    }
+};

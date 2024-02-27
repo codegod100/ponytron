@@ -5,6 +5,12 @@ from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
 import socketio
+from dotenv import load_dotenv
+import os
+import jwt
+
+load_dotenv()
+SECRET = os.environ["SECRET"]
 
 sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*")
 db = Database()
@@ -74,6 +80,19 @@ async def create_user(data: Any) -> None:
         if not user:
             User(username=data["username"], password=password)
             commit()
+
+
+@post("/login")
+async def login(data: Any) -> Any:
+    with db_session:
+        user = select(u for u in User if u.username == data["username"]).first()
+        if not user:
+            return False
+        if pbkdf2_sha256.verify(data["password"], user.password):
+            print("verified")
+            encoded = jwt.encode({"some": "payload"}, SECRET, algorithm="HS256")
+            return encoded
+        return False
 
 
 @post("/submit_chat")
@@ -152,6 +171,7 @@ app = Litestar(
         unsubscribe,
         status,
         statuses,
+        login,
     ],
     cors_config=cors_config,
     debug=True,

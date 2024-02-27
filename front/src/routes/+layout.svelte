@@ -29,7 +29,7 @@
     Username
     <input name="username" class="input" type="text" />
     Password
-    <input type="text" class="input" />
+    <input name="password" type="password" class="input" />
     <button class="btn variant-filled mt-2">login</button>
   </form>
 {/if}

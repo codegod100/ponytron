@@ -1,6 +1,6 @@
 from litestar import Litestar, get, post
 from pony.orm import Database, db_session, commit, select, desc
-from models import User, Message, Chat, Subscription
+from models import User, Message, Chat, Subscription, Status
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
@@ -121,6 +121,22 @@ async def following(user: Any) -> Any:
         return [u.username for u in users]
 
 
+@post("/status")
+async def status(data: Any) -> Any:
+    with db_session:
+        user = select(u for u in User if u.username == data["user"]).first()
+        Status(author=user, body=data["body"])
+        commit()
+
+
+@get("/statuses/{user:str}")
+async def statuses(user: str) -> Any:
+    with db_session:
+        user = select(u for u in User if u.username == user).first()
+        stats = select(s for s in Status if s.author == user)
+        return [s.to_dict() for s in stats]
+
+
 app = Litestar(
     route_handlers=[
         users,
@@ -134,6 +150,8 @@ app = Litestar(
         following,
         user,
         unsubscribe,
+        status,
+        statuses,
     ],
     cors_config=cors_config,
     debug=True,

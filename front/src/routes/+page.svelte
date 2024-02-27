@@ -12,6 +12,6 @@
 
 {#each data.users as user}
   <div>
-    Username: {user.username}
+    Username: <a href="/profile/{user.username}">{user.username}</a>
   </div>
 {/each}

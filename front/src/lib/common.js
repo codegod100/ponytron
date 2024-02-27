@@ -69,6 +69,20 @@ export let following = async (user) => {
     return (await req).json();
 }
 
+export let create_status = async (data) => {
+    let url = PUBLIC_API + "/status"
+    await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+}
+
+export let get_statuses = async (user) => {
+    let url = PUBLIC_API + `/statuses/${user}`
+    let req = await fetch(url)
+    return (await req).json();
+}
+
 export let storedname = persisted("username", "")
 
 

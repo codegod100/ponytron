@@ -22,7 +22,7 @@
     {/if}
   </div>
 </div>
-<div class="h2">{data.username}</div>
+<div class="h2"><a href="/profile/{data.username}">{data.username}</a></div>
 
 {#if !data.username}
   <form method="POST" action="/" class="p-10">

@@ -16,7 +16,7 @@ export default {
 		skeleton({
 			themes: {
 				preset: [
-					"skeleton", "modern"
+					"skeleton", "modern", "vintage"
 				],
 			},
 		}),

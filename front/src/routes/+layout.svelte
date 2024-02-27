@@ -22,6 +22,7 @@
     {/if}
   </div>
 </div>
+<div class="h2">{data.username}</div>
 
 {#if !data.username}
   <form method="POST" action="/" class="p-10">

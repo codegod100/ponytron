@@ -15,7 +15,6 @@
   No chats
 {/if}
 <button
-  class={css({ background: "amber.500", rounded: "md", p: 2 })}
   on:click|preventDefault={async () => {
     await create_chat({ owner: data.username, name: data.emoji });
     await invalidateAll();

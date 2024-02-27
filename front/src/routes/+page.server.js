@@ -16,6 +16,7 @@ export const actions = {
         let jwt = await login({ username, password })
         console.log({ jwt })
         cookies.set("username", username, { path: "/" })
+        cookies.set("jwt", jwt, { path: "/" })
         if (username) {
             await create_user({ username, password })
         }

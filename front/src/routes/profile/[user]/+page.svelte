@@ -45,7 +45,7 @@
     <textarea bind:value={body} class="input"></textarea>
     <button
       on:click={async () => {
-        await create_status({ user: data.username, body });
+        await create_status({ jwt: data.jwt, body });
         invalidateAll();
         body = "";
       }}

@@ -19,6 +19,11 @@ db = Database()
 cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 
 
+def decode(j):
+    payload = jwt.decode(j, SECRET, algorithms=["HS256"])
+    return payload["username"]
+
+
 @get("/users")
 async def users() -> List[Any]:
     with db_session:
@@ -90,7 +95,9 @@ async def login(data: Any) -> Any:
             return False
         if pbkdf2_sha256.verify(data["password"], user.password):
             print("verified")
-            encoded = jwt.encode({"some": "payload"}, SECRET, algorithm="HS256")
+            encoded = jwt.encode(
+                {"username": data["username"]}, SECRET, algorithm="HS256"
+            )
             return encoded
         return False
 
@@ -143,7 +150,9 @@ async def following(user: Any) -> Any:
 @post("/status")
 async def status(data: Any) -> Any:
     with db_session:
-        user = select(u for u in User if u.username == data["user"]).first()
+        print(data)
+        username = decode(data["jwt"])
+        user = select(u for u in User if u.username == username).first()
         Status(author=user, body=data["body"])
         commit()
 

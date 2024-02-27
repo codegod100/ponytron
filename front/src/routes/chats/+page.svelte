@@ -3,7 +3,6 @@
   import { get_chats, create_chat } from "$lib/common";
   import { invalidateAll } from "$app/navigation";
   let chatName;
-  import { css } from "styled-system/css";
 </script>
 
 {#if data.chats.length > 0}
@@ -23,12 +22,7 @@
   }}>create chat {data.emoji}</button
 >
 <div>
-  Enter chat name: <input
-    type="text"
-    bind:value={chatName}
-    class={css({ p: "2", bg: "amber.500", rounded: "md" })}
-  /><button
-    class={css({ background: "amber.500", rounded: "md", p: 2 })}
+  Enter chat name: <input type="text" bind:value={chatName} /><button
     on:click={async () => {
       await create_chat({ owner: data.username, name: chatName });
       await invalidateAll();

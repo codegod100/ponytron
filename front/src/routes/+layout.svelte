@@ -1,26 +1,18 @@
 <script>
   export let data;
-  import "../app.css";
-  import { css } from "styled-system/css";
-  import { container, hstack } from "styled-system/patterns";
+  import "../app.postcss";
   import ponylog from "$lib/ponylog";
 
   ponylog();
 </script>
 
-<div class={hstack()}>
-  <div class={css({ fontWeight: "bold", color: "amber.500", fontSize: 40 })}>
-    Ponytron 🐴🤠
-  </div>
+<div>
+  <div>Ponytron 🐴🤠</div>
   <div>
     {#if data.username}
       <form method="POST" action="/">
-        <button
-          name="username"
-          value=""
-          type="submit"
-          class={css({ background: "amber.500", rounded: "md", p: 2 })}
-          on:click={() => {}}>logout</button
+        <button name="username" value="" type="submit" on:click={() => {}}
+          >logout</button
         >
       </form>
     {/if}
@@ -30,28 +22,21 @@
 {#if !data.username}
   <form method="POST" action="/">
     Username
-    <input
-      name="username"
-      type="text"
-      class={css({ background: "amber.500", rounded: "md", p: 2 })}
-    />
+    <input name="username" type="text" />
     Password
-    <input
-      type="text"
-      class={css({ background: "amber.500", rounded: "md", p: 2 })}
-    />
-    <button class={css({ bg: "amber.500", rounded: "md", p: 2 })}>login</button>
+    <input type="text" />
+    <button>login</button>
   </form>
 {/if}
 
 {#if data.username}
-  <div class={container()}>
+  <div>
     <slot />
   </div>
 
-  <div class={css({ p: "2" })}>
+  <div>
     <div>Navigation:</div>
-    <a href="/" class={css({ bg: "blue.500" })}>Main</a>
-    <a href="/chats" class={css({ bg: "blue.500" })}>Chats</a>
+    <a href="/">Main</a>
+    <a href="/chats">Chats</a>
   </div>
 {/if}

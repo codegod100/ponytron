@@ -1,14 +1,8 @@
 <script>
   export let data;
-  import { css } from "styled-system/css";
 </script>
 
-<div
-  class={css({
-    fontSize: "2xl",
-    fontWeight: "bold",
-  })}
->
+<div>
   Hello {data.username} 🐼!
 </div>
 

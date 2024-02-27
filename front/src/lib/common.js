@@ -58,5 +58,3 @@ export let following = async (user) => {
 export let storedname = persisted("username", "")
 
 
-// let emojis = ["😀", "😍", "🤔", "🚀", "🏆", "🎉", "🤷‍♂️", "💃", "🤝", "🏁"]
-// export let randomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];

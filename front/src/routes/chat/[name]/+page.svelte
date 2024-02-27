@@ -21,15 +21,11 @@
 <h1>You are in {$page.params.name}</h1>
 {#each data.chat.messages as message}
   <div>
-    <button
-      on:click={async () => {
-        await subscribe({ user: message.author, my_info: data.username });
-      }}
-      >{message.author}
-      {#if data.friends && data.friends.includes(message.author) && message.author != data.username}
-        [following]
-      {/if}
-    </button>: {message.body}
+    <a href="/profile/{message.author}"> {message.author}</a>
+    {#if data.friends && data.friends.includes(message.author) && message.author != data.username}
+      [following]
+    {/if}::
+    {message.body}
   </div>
 {/each}
 
@@ -41,7 +37,6 @@
       body: message,
     });
     message = "";
-    // invalidateAll();
   }}
 >
   <input

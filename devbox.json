@@ -2,7 +2,8 @@
   "packages": [
     "nodejs@latest",
     "bun@latest",
-    "rye@latest"
+    "rye@latest",
+    "sqlite@latest"
   ],
   "shell": {
     "init_hook": [

@@ -6,6 +6,12 @@ export let get_users = async () => {
     let req = fetch(users_url);
     return (await req).json();
 };
+
+export let get_user = async (username) => {
+    let url = PUBLIC_API + `/user/${username}`
+    let req = fetch(url);
+    return (await req).json();
+}
 export let get_chat = async (name) => {
     let get_chat_url = PUBLIC_API + `/chat/${name}`
     let req = fetch(get_chat_url);
@@ -43,6 +49,14 @@ export let submit_chat = async (data) => {
 
 export let subscribe = async (data) => {
     let url = PUBLIC_API + "/subscribe"
+    await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+}
+
+export let unsubscribe = async (data) => {
+    let url = PUBLIC_API + "/unsubscribe"
     await fetch(url, {
         method: "POST",
         body: JSON.stringify(data)

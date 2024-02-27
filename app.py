@@ -21,6 +21,13 @@ async def users() -> List[Any]:
         return [user.to_dict() for user in users]
 
 
+@get("/user/{username:str}")
+async def user(username: str) -> Any:
+    with db_session:
+        user = select(u for u in User if u.username == username).first()
+        return user.to_dict()
+
+
 @get("/chats")
 async def chats() -> List[Any]:
     with db_session:
@@ -87,6 +94,17 @@ async def subscribe(data: Any) -> None:
         commit()
 
 
+@post("/unsubscribe")
+async def unsubscribe(data: Any) -> None:
+    with db_session:
+        user = select(u for u in User if u.username == data["user"]).first()
+        sub = select(
+            s for s in Subscription if s.user == user and s.follower == data["my_info"]
+        ).first()
+        sub.delete()
+        commit()
+
+
 @get("/subscriptions/{user:str}")
 async def subscriptions(user: Any) -> Any:
     with db_session:
@@ -98,6 +116,7 @@ async def subscriptions(user: Any) -> Any:
 async def following(user: Any) -> Any:
     with db_session:
         subs = select(s for s in Subscription if s.follower == user)
+        print(subs.show())
         users = [s.user for s in subs]
         return [u.username for u in users]
 
@@ -113,6 +132,8 @@ app = Litestar(
         subscribe,
         subscriptions,
         following,
+        user,
+        unsubscribe,
     ],
     cors_config=cors_config,
     debug=True,

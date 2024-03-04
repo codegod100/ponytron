@@ -5,7 +5,7 @@ import { fail } from '@sveltejs/kit';
 export async function load({ params }) {
     let users = await get_users()
     return {
-        users
+        users, nav: "main"
     };
 }
 

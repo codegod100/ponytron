@@ -17,7 +17,8 @@ export async function load({ params }) {
     }
     return {
         chats: await get_chats(),
-        emoji
+        emoji,
+        nav: "chats"
 
     };
 }

@@ -2,14 +2,15 @@
   export let data;
   import "../app.postcss";
   import ponylog from "$lib/ponylog";
-
+  import { page } from "$app/stores";
+  console.log("page form", $page.form);
   ponylog();
 </script>
 
 <div class="grid grid-flow-col auto-cols-max p-2">
   <div class="h1">Ponytron 🐴🤠</div>
   <div>
-    {#if data.username}
+    {#if data.username && !$page.form}
       <form method="POST" action="/">
         <button
           class="btn variant-filled inline"
@@ -22,19 +23,24 @@
     {/if}
   </div>
 </div>
-<div class="h2"><a href="/profile/{data.username}">{data.username}</a></div>
+{#if data.username}
+  <div class="h2"><a href="/profile/{data.username}">{data.username}</a></div>
+{/if}
 
-{#if !data.username}
-  <form method="POST" action="/" class="p-10">
+<form method="POST" action="/" class="p-10">
+  {#if $page.form}
+    <div class="mb-5">Wrong user/pass combo</div>
+  {/if}
+  {#if !data.username || $page.form}
     Username
     <input name="username" class="input" type="text" />
     Password
     <input name="password" type="password" class="input" />
     <button class="btn variant-filled mt-2">login</button>
-  </form>
-{/if}
+  {/if}
+</form>
 
-{#if data.username}
+{#if data.username && !$page.form}
   <div class="container">
     <slot />
   </div>

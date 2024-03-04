@@ -1,5 +1,6 @@
 import { PUBLIC_API } from "$env/static/public";
 import { json } from "@sveltejs/kit";
+
 import { persisted } from 'svelte-persisted-store'
 let users_url = PUBLIC_API + "/users";
 export let get_users = async () => {
@@ -89,7 +90,13 @@ export let login = async (data) => {
         method: "POST",
         body: JSON.stringify(data)
     })
-    return req.text()
+    let t = await req.text()
+    if (t == "false") {
+        // return fail(400, { data, incorrect: true })
+        throw new Error("Failed to authenticate")
+    }
+    console.log({ t })
+    return t
 }
 export let storedname = persisted("username", "")
 

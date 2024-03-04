@@ -106,7 +106,7 @@ async def login(data: Any) -> Any:
 async def submit_chat(data: Any) -> None:
     with db_session:
         chat = select(c for c in Chat if c.name == data["chat_name"]).first()
-        user = select(u for u in User if u.username == data["user"]).first()
+        user = select(u for u in User if u.username == decode(data["jwt"])).first()
         Message(author=user, chat=chat, body=data["body"])
         commit()
         await sio.emit("new_message")

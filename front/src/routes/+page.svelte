@@ -1,5 +1,10 @@
 <script>
+  export let form;
   export let data;
+  console.log(form);
+  if (form?.incorrect) {
+    delete data.username;
+  }
 </script>
 
 <div>

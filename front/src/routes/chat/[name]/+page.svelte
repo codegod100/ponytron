@@ -33,7 +33,7 @@
   on:submit|preventDefault={async () => {
     await submit_chat({
       chat_name: $page.params.name,
-      user: data.username,
+      jwt: data.jwt,
       body: message,
     });
     message = "";

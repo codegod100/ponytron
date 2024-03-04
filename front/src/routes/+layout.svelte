@@ -52,14 +52,16 @@
     <!-- <a href="/" class="btn variant-filled">Main</a>
     <a href="/chats" class="btn variant-filled">Chats</a> -->
 
-    {#each pages as p}
-      {#if p != $page.data.nav}
-        {#if p == "main"}
-          <a href="/" class="btn variant-filled">{p}</a>
-        {:else}
-          <a href="/{p}" class="btn variant-filled">{p}</a>
+    <div class="grid grid-flow-col auto-cols-max space-x-1">
+      {#each pages as p}
+        {#if p != $page.data.nav}
+          {#if p == "main"}
+            <div><a href="/" class="btn variant-filled">{p}</a></div>
+          {:else}
+            <div><a href="/{p}" class="btn variant-filled">{p}</a></div>
+          {/if}
         {/if}
-      {/if}
-    {/each}
+      {/each}
+    </div>
   </div>
 {/if}

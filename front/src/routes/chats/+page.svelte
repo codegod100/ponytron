@@ -27,6 +27,7 @@
     bind:value={chatName}
     class="input"
   /><button
+    class="btn variant-filled"
     on:click={async () => {
       await create_chat({ owner: data.username, name: chatName });
       await invalidateAll();

@@ -42,7 +42,6 @@
 {/if}
 
 {#if data.username && !$page.form}
-  <div>On page {$page.data.nav}</div>
   <div class="container">
     <slot />
   </div>

@@ -78,9 +78,13 @@ export let create_status = async (data) => {
     })
 }
 
-export let get_statuses = async (user) => {
+export let get_statuses = async ({ user, jwt }) => {
     let url = PUBLIC_API + `/statuses/${user}`
-    let req = await fetch(url)
+    let req = await fetch(url, {
+        headers: {
+            Authorization: `Bearer ${jwt}`
+        }
+    })
     return (await req).json();
 }
 

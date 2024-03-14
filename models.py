@@ -13,6 +13,7 @@ class User(db.Entity):
     messages = Set("Message")
     chats = Set("Chat")
     subscriptions = Set("Subscription")
+    session = Optional(str)
 
 
 class Subscription(db.Entity):

@@ -45,8 +45,8 @@ async def webfinger(resource: str, request: Request) -> Any:
     return jrd
 
 
-@get("/users/{user:str}")
-async def activities(user: str) -> Any:
+@get("/users/{username:str}")
+async def activities(username: str) -> Any:
     with open("activity.json") as f:
         d = json.load(f)
         text = json.dumps(d)
@@ -71,6 +71,9 @@ async def users() -> List[Any]:
 async def user(username: str) -> Any:
     with db_session:
         user = select(u for u in User if u.username == username).first()
+        if not user:
+            user = User(username=username)
+            commit()
         return user.to_dict()
 
 
@@ -125,17 +128,13 @@ async def create_user(data: Any) -> None:
 @post("/login")
 async def login(data: Any) -> Any:
     with db_session:
-        try:
-            client = clients[data["username"]]
-        except KeyError:
-            print("KEY ERROR HANDLING")
-            clients[data["username"]] = Client()
-            client = clients[data["username"]]
+        client = Client()
         profile = client.login(data["username"], data["password"])
+        session_string = client.export_session_string()
         name = profile.handle
         user = select(u for u in User if u.username == name).first()
         if not user:
-            User(username=name)
+            User(username=name, session=session_string)
             commit()
         encoded = jwt.encode({"username": name}, SECRET, algorithm="HS256")
         return encoded
@@ -196,13 +195,20 @@ async def status(data: Any) -> Any:
         commit()
 
 
-@get("/statuses/{user:str}")
-async def statuses(user: str) -> Any:
+@get("/statuses/{username:str}")
+async def statuses(username: str, headers: Any) -> Any:
     with db_session:
-        client = clients[user]
-        profile_feed = client.get_author_feed(actor=user)
+        print(headers)
+        token = headers["authorization"]
+        token = token.replace("Bearer ", "")
+        session_username = decode(token)
+        user = select(u for u in User if u.username == session_username).first()
+        client = Client()
+        client.login(session_string=user.session)
+        profile_feed = client.get_author_feed(actor=username)
         for feed_view in profile_feed.feed:
-            print("-", feed_view.post.record)
+            # print("-", feed_view.post.record)
+            pass
         return [feed_view.post.record for feed_view in profile_feed.feed][:5]
 
 

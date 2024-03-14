@@ -102,6 +102,12 @@ export let login = async (data) => {
     console.log({ t })
     return t
 }
+
+export let status_to_link = (status) => {
+    return `https://bsky.app/profile/${status.author.handle}/post/${status.uri
+        .split('/')
+        .pop()}`
+}
 export let storedname = persisted("username", "")
 
 

@@ -1,6 +1,11 @@
 <script>
   export let data;
-  import { create_status, subscribe, unsubscribe } from "$lib/common.js";
+  import {
+    create_status,
+    subscribe,
+    unsubscribe,
+    status_to_link,
+  } from "$lib/common.js";
   import { invalidateAll } from "$app/navigation";
   let body = "";
 </script>
@@ -36,8 +41,11 @@
   Statuses:
   {#each data.statuses as status}
     <div class="p-2">
-      <div>{status.text}</div>
-      <div class="text-xs">{new Date(status.created_at)}</div>
+      <div>{status.record.text}</div>
+      <div class="text-xs">
+        <a href={status_to_link(status)}>{new Date(status.record.created_at)}</a
+        >
+      </div>
     </div>
   {/each}
 </div>

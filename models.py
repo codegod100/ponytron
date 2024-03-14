@@ -11,8 +11,6 @@ class User(db.Entity):
     host = Optional(str)
     avatar = Optional(buffer)
     messages = Set("Message")
-    password = Required(str)
-    statuses = Set("Status")
     chats = Set("Chat")
     subscriptions = Set("Subscription")
 
@@ -35,12 +33,6 @@ class Message(db.Entity):
     id = PrimaryKey(int, auto=True)
     chat = Required(Chat)
     body = Optional(str)
-    author = Required(User)
-
-
-class Status(db.Entity):
-    id = PrimaryKey(int, auto=True)
-    body = Required(str)
     author = Required(User)
 
 

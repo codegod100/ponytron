@@ -1,7 +1,7 @@
 import json
 from litestar import Litestar, get, post, Request, Response
 from pony.orm import Database, db_session, commit, select, desc
-from models import User, Message, Chat, Subscription, Status
+from models import User, Message, Chat, Subscription
 from typing import List, Dict, Any
 from litestar.config.cors import CORSConfig
 from passlib.hash import pbkdf2_sha256
@@ -9,6 +9,10 @@ import socketio
 from dotenv import load_dotenv
 import os
 import jwt
+from atproto import Client, client_utils
+
+
+clients = {}
 
 load_dotenv()
 SECRET = os.environ["SECRET"]
@@ -121,16 +125,18 @@ async def create_user(data: Any) -> None:
 @post("/login")
 async def login(data: Any) -> Any:
     with db_session:
-        user = select(u for u in User if u.username == data["username"]).first()
+        client = clients[data["username"]]
+        if not client:
+            clients[data["username"]] = Client()
+            client = clients[data["username"]]
+        profile = client.login(data["username"], data["password"])
+        name = profile.handle
+        user = select(u for u in User if u.username == name).first()
         if not user:
-            return False
-        if pbkdf2_sha256.verify(data["password"], user.password):
-            print("verified")
-            encoded = jwt.encode(
-                {"username": data["username"]}, SECRET, algorithm="HS256"
-            )
-            return encoded
-        return False
+            User(username=name)
+            commit()
+        encoded = jwt.encode({"username": name}, SECRET, algorithm="HS256")
+        return encoded
 
 
 @post("/submit_chat")

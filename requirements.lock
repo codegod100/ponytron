@@ -10,9 +10,13 @@
 -e file:.
 annotated-types==0.6.0
 anyio==4.2.0
+atproto==0.0.45
 bidict==0.23.1
 certifi==2024.2.2
+cffi==1.16.0
 click==8.1.7
+cryptography==42.0.5
+dnspython==2.6.1
 editorconfig==0.12.4
 environs==10.3.0
 exceptiongroup==1.2.0
@@ -23,10 +27,11 @@ fastapi-cors==0.0.6
 h11==0.14.0
 httpcore==1.0.3
 httptools==0.6.1
-httpx==0.26.0
+httpx==0.25.2
 idna==3.6
 jinja2==3.1.3
 jsbeautifier==1.15.0
+libipld==1.2.3
 litestar==2.6.1
 markdown-it-py==3.0.0
 markupsafe==2.1.5
@@ -38,6 +43,7 @@ packaging==23.2
 passlib==1.7.4
 polyfactory==2.14.1
 pony==0.7.17
+pycparser==2.21
 pydantic==2.6.2
 pydantic-core==2.16.3
 pygments==2.17.2

@@ -13,7 +13,7 @@
       "test": [
         "echo \"Error: no test specified\" && exit 1"
       ],
-      "backend": "rye run uvicorn app:app --host 0.0.0.0 --log-level debug --reload",
+      "backend": "rye run uvicorn app:app --host 0.0.0.0 --log-level info --reload",
       "frontend": [
         "cd front",
         "bun install",

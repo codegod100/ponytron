@@ -1,4 +1,5 @@
-from litestar import Litestar, get, post
+import json
+from litestar import Litestar, get, post, Request, Response
 from pony.orm import Database, db_session, commit, select, desc
 from models import User, Message, Chat, Subscription, Status
 from typing import List, Dict, Any
@@ -11,6 +12,7 @@ import jwt
 
 load_dotenv()
 SECRET = os.environ["SECRET"]
+BASE_URL = os.environ["BASE_URL"]
 
 sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*")
 db = Database()
@@ -22,6 +24,35 @@ cors_config = CORSConfig(allow_origins=["*"], allow_methods=["GET", "POST"])
 def decode(j):
     payload = jwt.decode(j, SECRET, algorithms=["HS256"])
     return payload["username"]
+
+
+@get("/.well-known/webfinger")
+async def webfinger(resource: str, request: Request) -> Any:
+    jrd = {
+        "subject": resource,
+        "links": [
+            {
+                "rel": "self",
+                "type": "application/activity+json",
+                "href": BASE_URL + "users/v",
+            }
+        ],
+    }
+    return jrd
+
+
+@get("/users/{user:str}")
+async def activities(user: str) -> Any:
+    with open("activity.json") as f:
+        d = json.load(f)
+        text = json.dumps(d)
+        nt = text.replace("https://federate.social/", BASE_URL)
+        return Response(content=nt, media_type="application/activity+json")
+
+
+@post("/inbox")
+async def inbox(data: Any) -> Any:
+    print(json.dumps(data))
 
 
 @get("/users")
@@ -181,6 +212,9 @@ app = Litestar(
         status,
         statuses,
         login,
+        webfinger,
+        activities,
+        inbox,
     ],
     cors_config=cors_config,
     debug=True,

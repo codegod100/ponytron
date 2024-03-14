@@ -1,0 +1,61 @@
+{
+    "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        {
+            "ostatus": "http://ostatus.org#",
+            "atomUri": "ostatus:atomUri",
+            "inReplyToAtomUri": "ostatus:inReplyToAtomUri",
+            "conversation": "ostatus:conversation",
+            "sensitive": "as:sensitive",
+            "toot": "http://joinmastodon.org/ns#",
+            "votersCount": "toot:votersCount"
+        }
+    ],
+    "id": "https://federate.social/users/v/statuses/112041653081729110/activity",
+    "type": "Create",
+    "actor": "https://federate.social/users/v",
+    "published": "2024-03-05T06:25:50Z",
+    "to": [
+        "https://animated-space-succotash-6p5p49qj464c646-8000.app.github.dev/users/v"
+    ],
+    "cc": [],
+    "object": {
+        "id": "https://federate.social/users/v/statuses/112041653081729110",
+        "type": "Note",
+        "summary": null,
+        "inReplyTo": null,
+        "published": "2024-03-05T06:25:50Z",
+        "url": "https://federate.social/@v/112041653081729110",
+        "attributedTo": "https://federate.social/users/v",
+        "to": [
+            "https://animated-space-succotash-6p5p49qj464c646-8000.app.github.dev/users/v"
+        ],
+        "cc": [],
+        "sensitive": false,
+        "atomUri": "https://federate.social/users/v/statuses/112041653081729110",
+        "inReplyToAtomUri": null,
+        "conversation": "tag:federate.social,2024-03-05:objectId=22508122:objectType=Conversation",
+        "content": "<p><span class=\"h-card\" translate=\"no\"><a href=\"https://animated-space-succotash-6p5p49qj464c646-8000.app.github.dev/@v\" class=\"u-url mention\">@<span>v@animated-space-succotash-6p5p49qj464c646-8000.app.github.dev</span></a></span> hi</p>",
+        "contentMap": {
+            "en": "<p><span class=\"h-card\" translate=\"no\"><a href=\"https://animated-space-succotash-6p5p49qj464c646-8000.app.github.dev/@v\" class=\"u-url mention\">@<span>v@animated-space-succotash-6p5p49qj464c646-8000.app.github.dev</span></a></span> hi</p>"
+        },
+        "attachment": [],
+        "tag": [
+            {
+                "type": "Mention",
+                "href": "https://animated-space-succotash-6p5p49qj464c646-8000.app.github.dev/users/v",
+                "name": "@v@animated-space-succotash-6p5p49qj464c646-8000.app.github.dev"
+            }
+        ],
+        "replies": {
+            "id": "https://federate.social/users/v/statuses/112041653081729110/replies",
+            "type": "Collection",
+            "first": {
+                "type": "CollectionPage",
+                "next": "https://federate.social/users/v/statuses/112041653081729110/replies?only_other_accounts=true&page=true",
+                "partOf": "https://federate.social/users/v/statuses/112041653081729110/replies",
+                "items": []
+            }
+        }
+    }
+}

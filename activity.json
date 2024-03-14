@@ -1,0 +1,101 @@
+{
+	"@context": [
+		"https://www.w3.org/ns/activitystreams",
+		"https://w3id.org/security/v1",
+		{
+			"manuallyApprovesFollowers": "as:manuallyApprovesFollowers",
+			"toot": "http://joinmastodon.org/ns#",
+			"featured": {
+				"@id": "toot:featured",
+				"@type": "@id"
+			},
+			"featuredTags": {
+				"@id": "toot:featuredTags",
+				"@type": "@id"
+			},
+			"alsoKnownAs": {
+				"@id": "as:alsoKnownAs",
+				"@type": "@id"
+			},
+			"movedTo": {
+				"@id": "as:movedTo",
+				"@type": "@id"
+			},
+			"schema": "http://schema.org#",
+			"PropertyValue": "schema:PropertyValue",
+			"value": "schema:value",
+			"discoverable": "toot:discoverable",
+			"Device": "toot:Device",
+			"Ed25519Signature": "toot:Ed25519Signature",
+			"Ed25519Key": "toot:Ed25519Key",
+			"Curve25519Key": "toot:Curve25519Key",
+			"EncryptedMessage": "toot:EncryptedMessage",
+			"publicKeyBase64": "toot:publicKeyBase64",
+			"deviceId": "toot:deviceId",
+			"claim": {
+				"@type": "@id",
+				"@id": "toot:claim"
+			},
+			"fingerprintKey": {
+				"@type": "@id",
+				"@id": "toot:fingerprintKey"
+			},
+			"identityKey": {
+				"@type": "@id",
+				"@id": "toot:identityKey"
+			},
+			"devices": {
+				"@type": "@id",
+				"@id": "toot:devices"
+			},
+			"messageFranking": "toot:messageFranking",
+			"messageType": "toot:messageType",
+			"cipherText": "toot:cipherText",
+			"suspended": "toot:suspended",
+			"memorial": "toot:memorial",
+			"indexable": "toot:indexable",
+			"focalPoint": {
+				"@container": "@list",
+				"@id": "toot:focalPoint"
+			}
+		}
+	],
+	"id": "https://federate.social/users/v",
+	"type": "Person",
+	"following": "https://federate.social/users/v/following",
+	"followers": "https://federate.social/users/v/followers",
+	"inbox": "https://federate.social/users/v/inbox",
+	"outbox": "https://federate.social/users/v/outbox",
+	"featured": "https://federate.social/users/v/collections/featured",
+	"featuredTags": "https://federate.social/users/v/collections/tags",
+	"preferredUsername": "v",
+	"name": "𝕯𝖊𝖒𝖔𝖓",
+	"summary": "\u003cp\u003eWelcome to the night\u003c/p\u003e",
+	"url": "https://federate.social/@v",
+	"manuallyApprovesFollowers": false,
+	"discoverable": false,
+	"indexable": true,
+	"published": "2022-12-21T00:00:00Z",
+	"memorial": false,
+	"devices": "https://federate.social/users/v/collections/devices",
+	"publicKey": {
+		"id": "https://federate.social/users/v#main-key",
+		"owner": "https://federate.social/users/v",
+		"publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3VnLPgTHolbfymJhyrRd\n//sMq+ad43fTf8gqDeivjm1AF3PYRa5CWE+MSzgL7Ss2TIYqTCfAayHC9Iyv1Ke3\nleZa8n7Q+RnOoAgs5X7YTizHrohotjUDQZR/Kpxu3dWrhWaWs9MjYooh3MfQuMC3\nRTOLKDnkSJQWXirlNuDAXw/GE94nkmSRgKV6Jj11LVE6OT0jySfPsVHwxi3gwrBE\nSaKplv7EAakcNO0WaxRv5rcU89zmvh9L/hs69tYkCDgCkfUSGOH7HSmRM21cMrHQ\nEqn8wqSjKznTtDTdQZk6Ga5wyVDX/C02wjA1bmnguTYe1x7hxtVkvHIzSxFYvzlJ\nmQIDAQAB\n-----END PUBLIC KEY-----\n"
+	},
+	"tag": [],
+	"attachment": [],
+	"endpoints": {
+		"sharedInbox": "https://federate.social/inbox"
+	},
+	"icon": {
+		"type": "Image",
+		"mediaType": "image/jpeg",
+		"url": "https://cdn.masto.host/federatesocial/accounts/avatars/109/553/009/381/757/403/original/a65973bf5fd13906.jpg"
+	},
+	"image": {
+		"type": "Image",
+		"mediaType": "image/jpeg",
+		"url": "https://cdn.masto.host/federatesocial/accounts/headers/109/553/009/381/757/403/original/33909c0a65efa42f.jpg"
+	}
+}

@@ -35,7 +35,10 @@
 <div>
   Statuses:
   {#each data.statuses as status}
-    <div class="p-2">{status.body}</div>
+    <div class="p-2">
+      <div>{status.text}</div>
+      <div class="text-xs">{new Date(status.created_at)}</div>
+    </div>
   {/each}
 </div>
 

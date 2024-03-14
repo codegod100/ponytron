@@ -125,8 +125,10 @@ async def create_user(data: Any) -> None:
 @post("/login")
 async def login(data: Any) -> Any:
     with db_session:
-        client = clients[data["username"]]
-        if not client:
+        try:
+            client = clients[data["username"]]
+        except KeyError:
+            print("KEY ERROR HANDLING")
             clients[data["username"]] = Client()
             client = clients[data["username"]]
         profile = client.login(data["username"], data["password"])
@@ -197,9 +199,11 @@ async def status(data: Any) -> Any:
 @get("/statuses/{user:str}")
 async def statuses(user: str) -> Any:
     with db_session:
-        user = select(u for u in User if u.username == user).first()
-        stats = select(s for s in Status if s.author == user)
-        return [s.to_dict() for s in stats]
+        client = clients[user]
+        profile_feed = client.get_author_feed(actor=user)
+        for feed_view in profile_feed.feed:
+            print("-", feed_view.post.record)
+        return [feed_view.post.record for feed_view in profile_feed.feed][:5]
 
 
 app = Litestar(

@@ -205,6 +205,8 @@ async def statuses(username: str, headers: Any) -> Any:
         user = select(u for u in User if u.username == session_username).first()
         client = Client()
         client.login(session_string=user.session)
+        prefs = client.app.bsky.actor.put_preferences({"$type": "world"})
+        print(prefs)
         profile_feed = client.get_author_feed(actor=username)
         for feed_view in profile_feed.feed:
             # print("-", feed_view.post.record)

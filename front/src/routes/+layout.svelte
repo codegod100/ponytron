@@ -3,7 +3,6 @@
   import "../app.postcss";
   import ponylog from "$lib/ponylog";
   import { page } from "$app/stores";
-  console.log("page form", $page.form);
   ponylog();
   let pages = ["main", "chats"];
 </script>

@@ -4,6 +4,7 @@ import { json } from "@sveltejs/kit";
 import { persisted } from 'svelte-persisted-store'
 export let get_users = async () => {
     let users_url = PUBLIC_API + "/users";
+    console.log({users_url})
     let req = fetch(users_url);
     return (await req).json();
 };

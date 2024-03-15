@@ -134,8 +134,9 @@ async def login(data: Any) -> Any:
         name = profile.handle
         user = select(u for u in User if u.username == name).first()
         if not user:
-            User(username=name, session=session_string)
-            commit()
+            User(username=name)
+        user.session=session_string
+        commit()
         encoded = jwt.encode({"username": name}, SECRET, algorithm="HS256")
         return encoded
 
@@ -208,7 +209,7 @@ async def statuses(username: str, headers: Any) -> Any:
 
         profile_feed = client.get_author_feed(actor=username)
         for feed_view in profile_feed.feed:
-            print("-", feed_view.post)
+            # print("-", feed_view.post)
             pass
         return [
             feed_view.post
